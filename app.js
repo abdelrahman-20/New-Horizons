@@ -15,9 +15,7 @@ app.use((req, res, next) => {
 
 // Reading Tours Into JS Object From A JSON-File
 const tours = JSON.parse(
-  fs.readFileSync(
-    `${__dirname}/dev-data/data/tours-simple.json`
-  )
+  fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
 );
 
 // Route Handlers:
@@ -131,29 +129,20 @@ const deleteUser = (req, res) => {
   });
 };
 
-// All Tours-Routes:
-app
-  .route('/api/v1/tours')
-  .get(getAllTours)
-  .post(createTour);
+// Mounting New Routers:
+const tourRouter = express.Router();
+const userRouter = express.Router();
 
-app
-  .route('/api/v1/tours/:id')
-  .get(getTour)
-  .patch(updateTour)
-  .delete(deleteTour);
+app.use('/api/v1/tours', tourRouter);
+app.use('/api/v1/users', userRouter);
+
+// All Tours-Routes:
+tourRouter.route('/').get(getAllTours).post(createTour);
+tourRouter.route('/:id').get(getTour).patch(updateTour).delete(deleteTour);
 
 // All Users-Tours:
-app
-  .route('/api/v1/users')
-  .get(getAllUsers)
-  .post(createUser);
-
-app
-  .route('/api/v1/users/:id')
-  .get(getUser)
-  .patch(updateUser)
-  .delete(deleteUser);
+userRouter.route('/').get(getAllUsers).post(createUser);
+userRouter.route('/:id').get(getUser).patch(updateUser).delete(deleteUser);
 
 // Start The Server:
 app.listen(PORT, () => {
