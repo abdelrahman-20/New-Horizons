@@ -6,7 +6,8 @@ This is A Project-Based Back-End Tutorial
 
 You Need To Install The Following Packages
 
+- Nodemon (Globally)
 - Express
-- Nodemon
 - Morgan
 - Dotenv
+- Mongoose
