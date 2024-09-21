@@ -7,17 +7,55 @@ const tourSchema = new mongoose.Schema({
     unique: [true, 'Tour Name Must Be Unique'],
     required: [true, 'Tour Must Have A Name'],
   },
+  duration: {
+    type: Number,
+    required: [true, 'Tour Must Have A Duration'],
+  },
+  maxGroupSize: {
+    type: Number,
+    required: [true, 'Tour Must Have A Group Size'],
+  },
+  difficulty: {
+    type: String,
+    required: [true, 'Tour Must Have A Difficulty'],
+  },
+  ratingsAverage: {
+    type: Number,
+    default: 4.5,
+  },
+  ratingsQuantity: {
+    type: Number,
+    default: 0,
+  },
   price: {
     type: Number,
     required: [true, 'Tour Must Have A Price'],
   },
-  rating: {
+  priceDiscount: {
     type: Number,
-    default: 4.5,
   },
-  difficulty: {
+  summary: {
     type: String,
-    default: 'Normal',
+    trim: true,
+    required: [true, 'Tour Must Have A Summary'],
+  },
+  description: {
+    type: String,
+    trime: true,
+  },
+  imageCover: {
+    type: String,
+    required: [true, 'Tour Must Have A Cover Image'],
+  },
+  images: {
+    type: [String],
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now(),
+  },
+  startDate: {
+    type: [Date],
   },
 });
 
