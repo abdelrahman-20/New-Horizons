@@ -3,7 +3,7 @@ const tourRouter = express.Router();
 const tourControllers = require(`${__dirname}/../controllers/tourControllers`);
 
 tourRouter
-  .route('/top-5-cheap')
+  .route('/topCheap')
   .get(tourControllers.aliasTopTours, tourControllers.getAllTours);
 
 tourRouter
