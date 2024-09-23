@@ -153,3 +153,76 @@ exports.deleteTour = async (req, res) => {
     });
   }
 };
+
+exports.getTourStats = async (req, res) => {
+  // This Function is To Get Statistics About Tours
+  try {
+    const stats = await Tour.aggregate([
+      {
+        $match: { ratingsAverage: { $gte: 4.5 } },
+      },
+      {
+        $group: {
+          _id: { $toUpper: '$difficulty' },
+          numRatings: { $sum: '$ratingsQuantity' },
+          avgRates: { $avg: '$ratingsAverage' },
+          avgPrice: { $avg: '$price' },
+          minPrice: { $min: '$price' },
+          maxPrice: { $max: '$price' },
+          numTours: { $sum: 1 },
+        },
+      },
+      {
+        $sort: { _id: 1 },
+      },
+      // {
+      //   $match: { _id: { $ne: 'EASY' } },
+      // },
+    ]);
+
+    res.status(200).json({
+      status: 'Success',
+      data: {
+        stats,
+      },
+    });
+  } catch (err) {
+    console.log(`Error: ${err}`);
+    res.status(400).json({
+      status: 'Failure',
+      message: err,
+    });
+  }
+};
+
+exports.getMonthlyPlan = async (req, res) => {
+  try {
+    const year = req.params.year * 1;
+    const plan = await Tour.aggregate([
+      {
+        // I used Images As (startDate) Happens to be empty in DB.
+        // $unwind: '$images',
+        $unwind: '$startDate',
+      },
+      {
+        $match: {
+          startDate: { $gte: new Date(`${year}-01-01`) },
+        },
+      },
+    ]);
+
+    res.status(200).json({
+      status: 'Success',
+      len: plan.length,
+      data: {
+        plan,
+      },
+    });
+  } catch (err) {
+    console.log(`Error: ${err}`);
+    res.status(400).json({
+      status: 'Failure',
+      message: err,
+    });
+  }
+};
