@@ -8,7 +8,8 @@ You Need To Install The Following Packages
 
 - Nodemon (Globally)
 - Express
+- Mongoose@4
 - Morgan
 - Dotenv
 - Slugify
-- Mongoose@4
+- Validator

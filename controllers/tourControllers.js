@@ -111,7 +111,7 @@ exports.createTour = async (req, res) => {
     console.log(`Error: ${err}`);
     res.status(400).json({
       status: 'Failure',
-      message: 'Invalid Data Was Sent',
+      message: err,
     });
   }
 };
@@ -119,7 +119,7 @@ exports.createTour = async (req, res) => {
 exports.updateTour = async (req, res) => {
   try {
     const updatedTour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
+      // new: true,
       runValidators: true,
     });
 
@@ -133,7 +133,7 @@ exports.updateTour = async (req, res) => {
     console.log(`Error: ${err}`);
     res.status(400).json({
       status: 'Failure',
-      message: 'Invalid Data Was Sent',
+      message: err,
     });
   }
 };
@@ -149,7 +149,7 @@ exports.deleteTour = async (req, res) => {
     console.log(`Error: ${err}`);
     res.status(400).json({
       status: 'Failure',
-      message: 'Invalid Data Was Sent',
+      message: err,
     });
   }
 };
@@ -161,14 +161,6 @@ exports.getTourStats = async (req, res) => {
       {
         $match: { ratingsAverage: { $gte: 4.5 } },
       },
-      // {
-      //   $match: {
-      //     $and: [
-      //       { ratingsAverage: { $gte: 4.5 } },
-      //       { secretTour: { $ne: true } },
-      //     ],
-      //   },
-      // },
       {
         $group: {
           _id: { $toUpper: '$difficulty' },
