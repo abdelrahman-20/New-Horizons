@@ -161,6 +161,14 @@ exports.getTourStats = async (req, res) => {
       {
         $match: { ratingsAverage: { $gte: 4.5 } },
       },
+      // {
+      //   $match: {
+      //     $and: [
+      //       { ratingsAverage: { $gte: 4.5 } },
+      //       { secretTour: { $ne: true } },
+      //     ],
+      //   },
+      // },
       {
         $group: {
           _id: { $toUpper: '$difficulty' },
@@ -172,9 +180,9 @@ exports.getTourStats = async (req, res) => {
           numTours: { $sum: 1 },
         },
       },
-      {
-        $sort: { _id: 1 },
-      },
+      // {
+      //   $sort: { _id: 1 },
+      // },
       // {
       //   $match: { _id: { $ne: 'EASY' } },
       // },
