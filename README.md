@@ -13,3 +13,9 @@ You Need To Install The Following Packages
 - Dotenv
 - Slugify
 - Validator
+
+#### For Debugging:
+
+You Need To Install The Following Packages
+
+- NDB (Globally)
