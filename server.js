@@ -8,16 +8,16 @@ const DB = process.env.DATABASE.replace('<PASS>', process.env.DATABASE_PASS);
 
 // Start Database Connection
 mongoose
-  .connect(DB, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-    useUnifiedTopology: true,
-  })
-  .then((con) => {
-    // console.log(con.connections);
-    console.log('DB Connection Successful');
-  });
+    .connect(DB, {
+        useNewUrlParser: true,
+        useCreateIndex: true,
+        useFindAndModify: false,
+        useUnifiedTopology: true,
+    })
+    .then((con) => {
+        // console.log(con.connections);
+        console.log('DB Connection Successful');
+    });
 
 // Create And Store The Data:
 // const testTour = new Tour({
